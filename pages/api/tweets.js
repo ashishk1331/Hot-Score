@@ -19,7 +19,6 @@ export default async function (req, res) {
 
     const homeTimeline = await client.v2.userTimeline(user.provider_id, {
         start_time: d,
-        end_time: new Date().toISOString(),
         "tweet.fields": ["created_at", "author_id", "in_reply_to_user_id"],
         max_results: 100,
     });

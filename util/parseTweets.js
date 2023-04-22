@@ -16,9 +16,9 @@ function rotate(arr, angle){
 
 function getDateArray(start, end){
 
-	let dates = ['today']
+	let dates = []
 
-	for(let i = 1; i<7; i++ ){
+	for(let i = 0; i<7; i++ ){
 		let temp = sub(new Date(start), {
 			days: i
 		})

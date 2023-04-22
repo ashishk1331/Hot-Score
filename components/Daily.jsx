@@ -9,7 +9,7 @@ export default function Daily(props){
 				<GearSix weight="fill" className="w-6 h-6 ml-auto" />
 			</h1>
 
-			<div className="w-full flex items-center justify-around mt-3">
+			<div className="w-full flex flex-wrap gap-4 md:gap-0 items-center justify-around mt-4">
 				<div className="flex items-center gap-1 m-3">
 					<PencilSimpleLine weight="fill" className="w-6 h-6 fill-blue mt-1 mb-auto" />
 					<h1 className="text-7xl">{props.metrics?.today.tweets || 0}</h1>

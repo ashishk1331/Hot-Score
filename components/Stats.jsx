@@ -12,16 +12,17 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
+ChartJS.register(
+	CategoryScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	Title,
+	Tooltip,
+	Legend
+);
+
 function Chart(props) {
-	ChartJS.register(
-		CategoryScale,
-		LinearScale,
-		PointElement,
-		LineElement,
-		Title,
-		Tooltip,
-		Legend
-	);
 
 	const options = {
 		responsive: true,
@@ -75,18 +76,30 @@ function Chart(props) {
 				ticks: {
 					color: "#000",
 					padding: 24,
-					stepSize: 1,
+					stepSize: () => {
+						let temp = props.max
+						if(temp%5 != 0){
+							temp += 1
+						}
+						return Math.round(temp/5)
+					},
 				},
-				max: props.max,
+				max: () => {
+					let temp = props.max
+					if(temp%5 != 0){
+						temp += 1
+					}
+					return temp
+				},
 				min: 0,
 			},
 		},
 	};
 
-	const labels = props.dates;
+	const labels = props.dates
 
 	const data = {
-		labels,
+		labels, // labels
 		datasets: [
 			{
 				label: props.title,
@@ -126,13 +139,13 @@ export default function Stats(props) {
 				title="Tweets"
 				data={[...(props.metrics?.daysTweeted || [])]}
 				dates={[...(props.metrics?.dates || [])]}
-				max={props.metrics?.maxTweeted + 1 || 0}
+				max={props.metrics?.maxTweeted || 0}
 			/>
 			<Chart
 				title="Replies"
 				data={[...(props.metrics?.daysReplied || [])]}
 				dates={[...(props.metrics?.dates || [])]}
-				max={props.metrics?.maxReplied + 1 || 0}
+				max={props.metrics?.maxReplied || 0}
 			/>
 		</section>
 	);
